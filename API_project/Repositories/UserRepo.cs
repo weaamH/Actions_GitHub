@@ -1,48 +1,90 @@
 ﻿using API_project.Models;
+using API_project.ViewModels;
 
 namespace API_project.Repositories
 {
-    public class UserRepo
+    public class UserRepo: IUserRepo
     {
-        static List<User> users { get; set; }
 
-        static UserRepo()
+        private UserContext _context;
+        public UserRepo(UserContext context)
         {
-            users = new List<User>()
+            _context = context;
+        }
+        public List<User> getAll()
+        {
+            List<User> usersList;
+            try
             {
-                new User(){ Id=1, firstName="Weaam", lastName = "Hjijah"},
-                new User(){ Id=2, firstName="Aya", lastName = "Taleb"},
-                new User(){ Id=3, firstName="Israa", lastName = "Haseeba"},
-                new User(){ Id=4, firstName="Siham", lastName = "Abu Rmeilah"},
-                new User(){Id=5, firstName="Maram", lastName = "Hjijah"}
-            };
+                usersList = _context.UserDB.ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return usersList;
+        }
+        public User Get(int id)
+        {
+            User user;
+            try
+            {
+                user = _context.UserDB.Find(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return user;
         }
 
-        public static List<User> getAll()
+        void IUserRepo.Delete(int id)
         {
-            return users;
+            ResponseModel model = new ResponseModel();
+            try
+            {
+                User _temp = Get(id);
+                if (_temp != null)
+                {
+                    _context.UserDB.Remove(_temp);
+                    _context.SaveChanges();
+                    model.IsSuccess = true;
+                    model.Messsage = "Employee Deleted Successfully";
+                }
+                else
+                {
+                    model.IsSuccess = false;
+                    model.Messsage = "Employee Not Found";
+                }
+            }
+            catch (Exception ex)
+            {
+                model.IsSuccess = false;
+                model.Messsage = "Error : " + ex.Message;
+            }
         }
-
-        public static User Get(int id)
+        void IUserRepo.Add(User newUser)
         {
-            return users.FirstOrDefault(User => User.Id == id);
+            User _temp = Get(newUser.Id);
+            if (_temp == null)
+            {
+                _context.UserDB.Add(newUser);
+                ResponseModel model = new ResponseModel();
+                model.Messsage = "Employee Inserted Successfully";
+                _context.SaveChanges();
+            }
         }
-        public static void Delete(int id)
+        void IUserRepo.Update(User newUser)
         {
-            var user = Get(id);
-            if (user != null)
-                users.Remove(user);
-        }
-        public static void Add(User newUser)
-        {
-            users.Add(newUser);
-        }
-        public static void Update(User user, int id)
-        {
-            var oldUserIndex = users.FindIndex(User => User.Id == id);
-            if (oldUserIndex == -1)
-                return;
-            users[oldUserIndex] = user;
+            User _temp = Get(newUser.Id);
+            if (_temp != null)
+            {
+                _temp.Id = newUser.Id;
+                _temp.firstName = newUser.firstName;
+                _temp.lastName = newUser.lastName;
+                _context.UserDB.Update(_temp);
+                _context.SaveChanges();
+            }
         }
     }
 }

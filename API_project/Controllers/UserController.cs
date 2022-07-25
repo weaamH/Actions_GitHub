@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using API_project.Models;
 using API_project.Repositories;
 
@@ -9,15 +8,21 @@ namespace API_project.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
+        private readonly IUserRepo _userRepo;
+
+        public UserController(IUserRepo userRepository) 
+        {
+            _userRepo = userRepository;
+        }
         [HttpGet]
         public ActionResult<List<User>> GetAll()
         {
-            return UserRepo.getAll();
+            return _userRepo.getAll();
         }
         [HttpGet("{id}")]
         public ActionResult<User> Get(int id)
         {
-            var user = UserRepo.Get(id);
+            var user = _userRepo.Get(id);
             if (user == null)
                 return NotFound();
             return user;
@@ -25,25 +30,25 @@ namespace API_project.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            var user = UserRepo.Get(id);
+            var user = _userRepo.Get(id);
             if (user == null)
                 return NotFound();
-            UserRepo.Delete(id);
+            _userRepo.Delete(id);
             return Ok();
         }
         [HttpPost]
-        public ActionResult Create(User user)
+        public ActionResult Create([FromBody] User user)
         {
-            UserRepo.Add(user);
+            _userRepo.Add(user);
             return Ok();
         }
         [HttpPut]
-        public ActionResult Update(User user, int id)
+        public ActionResult Update([FromBody] User user)
         {
-            var oldUser = UserRepo.Get(user.Id);
-            if (oldUser == null)
+            var _user = _userRepo.Get(user.Id);
+            if (_user == null)
                 return NotFound();
-            UserRepo.Update(user, id);
+            _userRepo.Update(_user);
             return Ok();
         }
     }
