@@ -2,12 +2,11 @@
 
 namespace API_project.Models
 {
-    public class Post
+    public class Post: BaseModel
     {
-        public int Id { get; set; }
         public string Title { get; set; }
         [ForeignKey("User")]
-        public int user_id;
+        public int user_id { get; set; }
         public User? user { get; set; }
     }
 }
