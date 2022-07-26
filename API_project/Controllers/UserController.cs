@@ -45,10 +45,7 @@ namespace API_project.Controllers
         [HttpPut]
         public ActionResult Update([FromBody] User user)
         {
-            var _user = _userRepo.Get(user.Id);
-            if (_user == null)
-                return NotFound();
-            _userRepo.Update(_user);
+            _userRepo.Update(user);
             return Ok();
         }
     }

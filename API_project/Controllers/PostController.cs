@@ -46,9 +46,6 @@ namespace API_project.Controllers
         [HttpPut]
         public ActionResult Update([FromBody] Post post)
         {
-            var _post = _postRepo.Get(post.Id);
-            if (_post == null)
-                return NotFound();
             _postRepo.Update(post);
             return Ok();
         }
