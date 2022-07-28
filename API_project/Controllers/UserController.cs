@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using API_project.Models;
 using API_project.Repositories;
+using API_project.ActionFilters;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API_project.Controllers
 {
@@ -15,6 +17,7 @@ namespace API_project.Controllers
             _userRepo = userRepository;
         }
         [HttpGet]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public ActionResult<List<User>> GetAll()
         {
             return _userRepo.getAll();

@@ -12,7 +12,7 @@ namespace API_project.Repositories
     }
     public class GenericRepository<T> :  IGenericRepository<T> where T : class, IBaseModel
     {
-        private UserContext _context;
+        public UserContext _context;
         public GenericRepository(UserContext context)
         {
             _context = context;

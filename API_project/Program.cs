@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.Initilize();
 
 var app = builder.Build();
-
+app.UseExceptionHandlerMiddleware();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

@@ -1,5 +1,8 @@
-﻿using API_project.Models;
+﻿using Amazon.IdentityManagement.Model;
+using API_project.ActionFilters;
+using API_project.Models;
 using API_project.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +19,7 @@ namespace API_project.Controllers
             _postRepo = postRepository;
         }
         [HttpGet]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public ActionResult<List<Post>> GetAll()
         {
             return _postRepo.getAll();
