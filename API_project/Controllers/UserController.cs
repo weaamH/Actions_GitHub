@@ -24,17 +24,12 @@ namespace API_project.Controllers
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<ActionResult<List<UserViewModel>>> GetAll()
         {
-            var users = await _userRepo.getAll();
-            return _mapper.Map<List<UserViewModel>>(users);
+            return await _userRepo.getAll<UserViewModel>();
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<UserViewModel>> Get(int id)
         {
-            var user = await _userRepo.Get(id);
-            if(user == null)
-                return NotFound();
-            return _mapper.Map<User, UserViewModel>(user);
-
+            return await _userRepo.Get<UserViewModel>(id);
         }
         [HttpDelete("{id}")]
         public async Task Delete(int id)

@@ -24,19 +24,14 @@ namespace API_project.Controllers
         }
         [HttpGet]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-        public async Task<ActionResult<List<PostViewModel>>> GetAll()
+        public async Task<ActionResult<List<PostViewModel>>> GetAll() 
         {
-            var posts = await _postRepo.getAll();
-            return _mapper.Map<List<PostViewModel>>(posts);
+            return await _postRepo.getAll<PostViewModel>();    
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<PostViewModel>> Get(int id)
+        public async Task<ActionResult<PostViewModel>> Get(int id) 
         {
-            var post = await _postRepo.Get(id);
-            if (post == null)
-                return NotFound();
-            return _mapper.Map<Post, PostViewModel>(post);
-
+            return await _postRepo.Get<PostViewModel>(id);
         }
         [HttpDelete("{id}")]
         public async Task Delete(int id)
