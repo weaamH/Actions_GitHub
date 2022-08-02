@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "I4nwX7GJJk22Uh6dhBh8cFvxziGqQNJJQ7/p+Iahp2cFz8YQ5Dxe07oZgiow6QHdSRwuHDmCUjDGfuXyElWPyA==",
+  "dgSpecHash": "p02lrhyUHqa10Q3TemHbcrOmOa0AeTO2HWZ+zxEOOYrtFgW53rvOq/An1vQS8TvT91dNp+kLtChX7OULHOF4bg==",
   "success": true,
   "projectFilePath": "C:\\Users\\twitter\\Desktop\\Weaam\\t3_git\\API_project\\API_project\\API_project.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\twitter\\.nuget\\packages\\abp\\7.3.0\\abp.7.3.0.nupkg.sha512",
+    "C:\\Users\\twitter\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
+    "C:\\Users\\twitter\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
     "C:\\Users\\twitter\\.nuget\\packages\\awssdk\\2.3.55.2\\awssdk.2.3.55.2.nupkg.sha512",
     "C:\\Users\\twitter\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",
     "C:\\Users\\twitter\\.nuget\\packages\\castle.core.asyncinterceptor\\2.1.0\\castle.core.asyncinterceptor.2.1.0.nupkg.sha512",
@@ -20,7 +22,7 @@
     "C:\\Users\\twitter\\.nuget\\packages\\microsoft.aspnetcore.http.extensions\\2.2.0\\microsoft.aspnetcore.http.extensions.2.2.0.nupkg.sha512",
     "C:\\Users\\twitter\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\twitter\\.nuget\\packages\\microsoft.aspnetcore.webutilities\\2.2.0\\microsoft.aspnetcore.webutilities.2.2.0.nupkg.sha512",
-    "C:\\Users\\twitter\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\twitter\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\twitter\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\twitter\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
     "C:\\Users\\twitter\\.nuget\\packages\\microsoft.dotnet.platformabstractions\\1.1.2\\microsoft.dotnet.platformabstractions.1.1.2.nupkg.sha512",

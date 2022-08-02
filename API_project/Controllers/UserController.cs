@@ -3,6 +3,8 @@ using API_project.Models;
 using API_project.Repositories;
 using API_project.ActionFilters;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
+using API_project.ClassesViewModels;
 
 namespace API_project.Controllers
 {
@@ -11,45 +13,45 @@ namespace API_project.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepo _userRepo;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserRepo userRepository) 
+        public UserController(IUserRepo userRepository, IMapper mapper) 
         {
             _userRepo = userRepository;
+            _mapper = mapper;
         }
         [HttpGet]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-        public ActionResult<List<User>> GetAll()
+        public async Task<ActionResult<List<UserViewModel>>> GetAll()
         {
-            return _userRepo.getAll();
+            var users = await _userRepo.getAll();
+            return _mapper.Map<List<UserViewModel>>(users);
         }
         [HttpGet("{id}")]
-        public ActionResult<User> Get(int id)
+        public async Task<ActionResult<UserViewModel>> Get(int id)
         {
-            var user = _userRepo.Get(id);
-            if (user == null)
+            var user = await _userRepo.Get(id);
+            if(user == null)
                 return NotFound();
-            return user;
+            return _mapper.Map<User, UserViewModel>(user);
+
         }
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public async Task Delete(int id)
         {
-            var user = _userRepo.Get(id);
-            if (user == null)
-                return NotFound();
-            _userRepo.Delete(id);
-            return Ok();
+            await _userRepo.Delete(id);
         }
+
         [HttpPost]
-        public ActionResult Create([FromBody] User user)
+        public async Task Create(UserViewModel uservm)
         {
-            _userRepo.Add(user);
-            return Ok();
+            var user = _mapper.Map<User>(uservm);
+            await _userRepo.Add(user);
         }
         [HttpPut]
-        public ActionResult Update([FromBody] User user)
+        public async Task Update(UserViewModel uservm)
         {
-            _userRepo.Update(user);
-            return Ok();
+            await _userRepo.Update(_mapper.Map<User>(uservm));
         }
     }
 }

@@ -9,6 +9,11 @@ namespace API_project.Repositories
     {
         public PostRepo(UserContext context) : base(context) { }
 
+        public new List<Post>? getAll()
+        {
+            return context.Posts.Include(c => c.user_id).ToList();
+        }
+
     }
     
 }

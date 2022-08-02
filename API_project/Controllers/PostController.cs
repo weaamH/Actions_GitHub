@@ -1,7 +1,9 @@
 ﻿using Amazon.IdentityManagement.Model;
 using API_project.ActionFilters;
+using API_project.ClassesViewModels;
 using API_project.Models;
 using API_project.Repositories;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,45 +15,45 @@ namespace API_project.Controllers
     public class PostController : ControllerBase
     {
         private readonly IPostRepo _postRepo;
+        private readonly IMapper _mapper;
 
-        public PostController(IPostRepo postRepository)
+        public PostController(IPostRepo postRepository, IMapper mapper)
         {
             _postRepo = postRepository;
+            _mapper = mapper;
         }
         [HttpGet]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-        public ActionResult<List<Post>> GetAll()
+        public async Task<ActionResult<List<PostViewModel>>> GetAll()
         {
-            return _postRepo.getAll();
+            var posts = await _postRepo.getAll();
+            return _mapper.Map<List<PostViewModel>>(posts);
         }
         [HttpGet("{id}")]
-        public ActionResult<Post> Get(int id)
+        public async Task<ActionResult<PostViewModel>> Get(int id)
         {
-            var post = _postRepo.Get(id);
+            var post = await _postRepo.Get(id);
             if (post == null)
                 return NotFound();
-            return post;
+            return _mapper.Map<Post, PostViewModel>(post);
+
         }
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public async Task Delete(int id)
         {
-            var post = _postRepo.Get(id);
-            if (post == null)
-                return NotFound();
-            _postRepo.Delete(id);
-            return Ok();
+            await _postRepo.Delete(id);
         }
         [HttpPost]
-        public ActionResult Create([FromBody] Post post)
+        public async Task Create(PostViewModel postvm)
         {
-            _postRepo.Add(post);
-            return Ok();
+            var post = _mapper.Map<Post>(postvm);
+            await _postRepo.Add(post);
         }
         [HttpPut]
-        public ActionResult Update([FromBody] Post post)
+        public async Task Update([FromBody] PostViewModel postvm)
         {
-            _postRepo.Update(post);
-            return Ok();
+            await _postRepo.Update(_mapper.Map<Post>(postvm));
+
         }
     }
 }

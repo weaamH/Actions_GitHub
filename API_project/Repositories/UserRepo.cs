@@ -8,9 +8,9 @@ namespace API_project.Repositories
     {
         public UserRepo(UserContext context) : base(context) { }
 
-        /*public new User? Get(int id)
+        public new List<User>? getAll()
         {
-            return _context.UserDB.Include(c => c.posts).ToList();
-        }*/
+            return context.UserDB.Include(c => c.posts).ToList();
+        }
     }
 }
