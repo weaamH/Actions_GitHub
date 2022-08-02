@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API_project.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase

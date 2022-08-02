@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace API_project.Models
 {
-    public class User: BaseModel
+    public class User: IdentityUser<int>, IBaseModel
     {
         public string firstName { 
             get; 

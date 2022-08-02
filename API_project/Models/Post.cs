@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API_project.Models
 {
-    public class Post: BaseModel
+    public class Post: IdentityUser<int>, IBaseModel
     {
         public string Title { get; set; }
         [ForeignKey("User")]

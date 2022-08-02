@@ -8,6 +8,7 @@ using API_project.ClassesViewModels;
 
 namespace API_project.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
