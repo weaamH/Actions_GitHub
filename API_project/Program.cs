@@ -28,14 +28,14 @@ builder.Services.AddAuthentication(options =>
 // Adding Jwt Bearer
 .AddJwtBearer(options =>
 {
-    options.SaveToken = false;
-    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    //options.RequireHttpsMetadata = false;
     options.TokenValidationParameters = new TokenValidationParameters()
     {
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidAudience = builder.Configuration["http://localhost:4200"],
-        ValidIssuer = builder.Configuration["http://localhost:5000"],
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidAudience = builder.Configuration["JWT:ValidAudience"],
+        ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
     };
 });
@@ -53,7 +53,7 @@ IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
 var app = builder.Build();
-app.UseExceptionHandlerMiddleware();
+//app.UseExceptionHandlerMiddleware();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -62,7 +62,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -22,7 +22,7 @@ namespace API_project.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        //[ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<ActionResult<List<UserViewModel>>> GetAll()
         {
             return await _userRepo.getAll<UserViewModel>();

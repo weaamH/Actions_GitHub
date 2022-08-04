@@ -12,7 +12,7 @@ namespace API_project
         {
             serv.AddScoped<IUserRepo, UserRepo>();
             serv.AddScoped<IPostRepo, PostRepo>();
-            serv.AddScoped<ValidationFilterAttribute>();
+            //serv.AddScoped<ValidationFilterAttribute>();
         }
     }
 }

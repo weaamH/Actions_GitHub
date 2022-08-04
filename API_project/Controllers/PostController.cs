@@ -24,7 +24,7 @@ namespace API_project.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        //[ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<ActionResult<List<PostViewModel>>> GetAll() 
         {
             return await _postRepo.getAll<PostViewModel>();    
