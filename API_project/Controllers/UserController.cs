@@ -5,6 +5,7 @@ using API_project.ActionFilters;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using API_project.ClassesViewModels;
+using System.Security.Claims;
 
 namespace API_project.Controllers
 {

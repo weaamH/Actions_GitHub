@@ -6,7 +6,7 @@ using System.Collections;
 
 namespace API_project
 {
-    public static class Initialization
+    public static class Initialization 
     {
         public static void Initilize(this IServiceCollection serv)
         {
