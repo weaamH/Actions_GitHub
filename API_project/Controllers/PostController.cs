@@ -34,6 +34,11 @@ namespace API_project.Controllers
         {
             return await _postRepo.Get<PostViewModel>(id);
         }
+        [HttpGet("{pageNum},{pageSize},{str}")]
+        public List<Post> getPage(int pageNum, int pageSize, String str)
+        {
+            return _postRepo.getPage(pageNum, pageSize, str);
+        }
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {

@@ -12,13 +12,13 @@ namespace API_project.Repositories
     {
         public PostRepo(UserContext context, IMapper mapper) : base(context, mapper) { }
 
-        /*public new List<Tvm>? getAll<Tvm>()
+        public List<Post> getPage(int pageNumber, int pageSize, String str)
         {
-            return context.Posts.Include(c => c.user_id).ToList();
-            return context.Posts.ProjectTo<PostViewModel>(mapper.ConfigurationProvider).ToList();
-
-        }*/
-
+            return context.Posts.Where(p => p.Title.Contains(str))
+                .Skip(pageNumber*pageSize)
+                .Take(pageSize)
+                .ToList();
+        }
     }
     
 }
