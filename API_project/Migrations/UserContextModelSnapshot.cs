@@ -106,6 +106,18 @@ namespace API_project.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("created_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("created_by")
+                        .HasColumnType("int");
+
+                    b.Property<int>("modified_by")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("updated_at")
+                        .HasColumnType("datetime2");
+
                     b.Property<int?>("userId")
                         .HasColumnType("int");
 

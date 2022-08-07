@@ -2,7 +2,9 @@
 using API_project.Models;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace API_project.Repositories
 {
@@ -11,10 +13,10 @@ namespace API_project.Repositories
         public Task<List<Tvm>> getAll<Tvm>();
         public Task<Tvm> Get<Tvm>(int id) where Tvm : class, IBaseModel;
         public Task Delete(int id);
-        public Task<T> Add(T entity);
-        public Task<T> Update(T entity);
+        public Task<T> Add(T entity, int id);
+        public Task<T> Update(T entity, int id);
     }
-    public class GenericRepository<T> :  IGenericRepository<T> where T : class, IBaseModel
+    public class GenericRepository<T> : IGenericRepository<T> where T : class, IBaseModel
     {
         public UserContext context;
         public IMapper mapper;
@@ -23,9 +25,16 @@ namespace API_project.Repositories
             this.context = context;
             this.mapper = mapper;
         }
-        public async Task<T> Add(T entity)
+        public async Task<T> Add(T entity, int id)
         {
-           await context.Set<T>().AddAsync(entity);
+            PropertyInfo time = entity.GetType().GetProperty("created_at");
+            if (time != null)
+            {
+                time.SetValue(entity, DateTime.Now);
+                PropertyInfo person = entity.GetType().GetProperty("created_by");
+                person.SetValue(entity, id);
+            }
+            await context.Set<T>().AddAsync(entity);
             await context.SaveChangesAsync();
             return entity;
         }
@@ -49,8 +58,15 @@ namespace API_project.Repositories
             return context.Set<T>().ProjectTo<Tvm>(mapper.ConfigurationProvider).ToList();
         }
 
-        public async Task<T> Update(T entity)
+        public async Task<T> Update(T entity, int id)
         {
+            PropertyInfo time = entity.GetType().GetProperty("updated_at");
+            if (time != null)
+            {
+                time.SetValue(entity, DateTime.Now);
+                PropertyInfo person = entity.GetType().GetProperty("modified_by");
+                person.SetValue(entity, id);
+            }
             context.Set<T>().Update(entity);
             context.SaveChanges();
             return entity;

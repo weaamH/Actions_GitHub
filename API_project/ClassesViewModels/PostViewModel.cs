@@ -14,5 +14,24 @@ namespace API_project.ClassesViewModels
             get; 
             set; 
         }
+        /*public DateTime? created_at { 
+            get; 
+            set; 
+        }
+        public DateTime created_by 
+        { 
+            get; 
+            set; 
+        }
+        public DateTime updated_at 
+        { 
+            get; 
+            set; 
+        }
+        public DateTime modified_by 
+        { 
+            get; 
+            set; 
+        }*/
     }
 }

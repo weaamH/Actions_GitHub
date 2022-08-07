@@ -50,12 +50,13 @@ namespace API_project.Controllers
             var post = _mapper.Map<Post>(postvm);
             var userId = User.Claims?.SingleOrDefault(p => p.Type == "UserId")?.Value;
             post.user_id = Convert.ToInt32(userId);
-            await _postRepo.Add(post);
+            await _postRepo.Add(post, Convert.ToInt32(userId));
         }
         [HttpPut]
         public async Task Update([FromBody] PostViewModel postvm)
         {
-            await _postRepo.Update(_mapper.Map<Post>(postvm));
+            var userId = User.Claims?.SingleOrDefault(p => p.Type == "UserId")?.Value;
+            await _postRepo.Update(_mapper.Map<Post>(postvm), Convert.ToInt32(userId));
         }
     }
 }

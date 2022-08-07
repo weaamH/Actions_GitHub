@@ -43,12 +43,14 @@ namespace API_project.Controllers
         public async Task Create(UserViewModel uservm)
         {
             var user = _mapper.Map<User>(uservm);
-            await _userRepo.Add(user);
+            var userId = User.Claims?.SingleOrDefault(p => p.Type == "UserId")?.Value;
+            await _userRepo.Add(user, Convert.ToInt32(userId));
         }
         [HttpPut]
         public async Task Update(UserViewModel uservm)
         {
-            await _userRepo.Update(_mapper.Map<User>(uservm));
+            var userId = User.Claims?.SingleOrDefault(p => p.Type == "UserId")?.Value;
+            await _userRepo.Update(_mapper.Map<User>(uservm), Convert.ToInt32(userId));
         }
     }
 }

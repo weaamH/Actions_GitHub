@@ -20,5 +20,4 @@ namespace API_project.Repositories
                 .ToList();
         }
     }
-    
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_project.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20220802140159_Init")]
-    partial class Init
+    [Migration("20220807114636_newDataBase")]
+    partial class newDataBase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -107,6 +107,18 @@ namespace API_project.Migrations
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("created_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("created_by")
+                        .HasColumnType("int");
+
+                    b.Property<int>("modified_by")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("updated_at")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("userId")
                         .HasColumnType("int");
